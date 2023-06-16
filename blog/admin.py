@@ -12,5 +12,6 @@ class PostAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title',)}
     # теперь при заполнении выбираешь из выпадающегно списка
     raw_id_fields = ['author']
+    #
     date_hierarchy = 'publish'
     ordering = ['status', 'publish']
