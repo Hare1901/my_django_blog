@@ -3,6 +3,13 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 
 
+
+class PublishedManager(models.Manager):
+    def get_queryset(self):
+
+        # Возвращается необходимый нам менеджер
+        return super().get_queryset().filter(status=Post.Status.PUBLISHED)
+
 #представление поста в блоге
 class Post(models.Model):
 
@@ -27,7 +34,10 @@ class Post(models.Model):
         default=Status.DRAFT
 
     )
-
+    # Стандартный мессенджер, явно объявили чтобы сохранить
+    objects = models.Manager()
+    # Конерктно-прикладной мессенджер( созданый нами)
+    published = PublishedManager()
 
     class Meta:
         # сортировка по убыванию
