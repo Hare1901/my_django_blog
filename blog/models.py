@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
+from django.urls import reverse
 
 
 
@@ -9,6 +10,8 @@ class PublishedManager(models.Manager):
 
         # Возвращается необходимый нам менеджер
         return super().get_queryset().filter(status=Post.Status.PUBLISHED)
+
+
 
 #представление поста в блоге
 class Post(models.Model):
@@ -49,3 +52,11 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+
+        return reverse(
+            "blog:post_details",
+            args=[self.id]
+        )
+
