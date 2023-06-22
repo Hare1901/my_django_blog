@@ -16,12 +16,15 @@ def post_list(request):
 
 
 # Пытаемся извлечь объект пост, если возникает ошибка 404 сообщаем что постов не существует
-def post_detail(request, id):
+def post_detail(request, year, month, day, post):
 
     post = get_object_or_404(
         Post,
-        id=id,
-        status=Post.Status.PUBLISHED
+        status=Post.Status.PUBLISHED,
+        slug=post,
+        publish__year=year,
+        publish__month=month,
+        publish__day=day
     )
 
     return render(
