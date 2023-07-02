@@ -1,9 +1,11 @@
+from django.core.mail import send_mail
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic import ListView
 
 from .models import Post
 from .forms import EmailPostForm
+from my_django_blog.config import *
 
 class PostListView(ListView):
 
@@ -64,11 +66,21 @@ def post_share(request, post_id):
         id=post_id,
         status=Post.Status.PUBLISHED
     )
+
+    sent = False
+
     # Передача на обработку формы
     if request.method == 'POST':
         form = EmailPostForm(request.POST)
         if form.is_valid():
             cd = form.cleaned_data
+            post_url = request.build_absolute_uri(post.get_absolute_url())
+            subject = f"{cd['name']} recommends you read"\
+                      f"{post.title}"
+            message = f"Read {post.title} at {post_url}\n\n"\
+                      f"{cd['name']}\'s comments: {cd['comments']}"
+            send_mail(subject, message, email, [cd['to']])
+            sent = True
     else:
         form = EmailPostForm()
 
@@ -77,6 +89,7 @@ def post_share(request, post_id):
         'blog/post/share.html',
         {
             'post': post,
-            'form': form
+            'form': form,
+            'sent': sent
         }
     )

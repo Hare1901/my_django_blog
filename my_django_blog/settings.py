@@ -1,5 +1,7 @@
-
 from pathlib import Path
+
+
+from .config import *
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -90,6 +92,14 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+
+
+# Конфигурация сервера электронной почты Gmail
+EMAIL_HOST = 'smpt.gmail.com'
+EMAIL_HOST_USER = email
+EMAIL_HOST_PASSWORD = password
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
