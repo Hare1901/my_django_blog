@@ -28,10 +28,17 @@ def post_detail(request, year, month, day, post):
         publish__day=day
     )
 
+    # формируем список активных комментариев
+    comments = post.comments.filter(active=True)
+    # форма для комментирования пользователем
+    form = CommentFrom()
     return render(
         request,
         'blog/post/detail.html',
-        {'post': post}
+        {'post': post,
+         'comments': comments,
+         'form': form
+         }
     )
 
 
