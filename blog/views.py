@@ -40,7 +40,8 @@ def post_list(request, tag_slug=None):
     return render(request,
                   'blog/post/list.html',
                   {'posts': posts,
-                   'tag': tag})
+                   'tag': tag}
+                  )
 
 # Пытаемся извлечь объект пост, если возникает ошибка 404 сообщаем что постов не существует
 def post_detail(request, year, month, day, post):
@@ -75,7 +76,7 @@ def post_detail(request, year, month, day, post):
         {'post': post,
          'comments': comments,
          'form': form,
-         'similar_posts': similar_posts
+         'similar_posts': similar_post
          }
     )
 
