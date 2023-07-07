@@ -27,9 +27,12 @@
             <ul>
                 {% for post in most_commented_post %}
                     <li>
-                        <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+                        <a href="{{ post.get_absolute_url }}">
+                            {{ post.title }}
+                        </a>
                     </li>
                 {% endfor %}
+            </ul>
          </div>
     </body>
 </html>

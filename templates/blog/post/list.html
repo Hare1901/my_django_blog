@@ -1,5 +1,7 @@
 {% extends "blog/base.html" %}
 
+{% load blog_tags %}
+
 {% block title %}My Blog{% endblock %}
 
 {% block content %}
@@ -33,7 +35,7 @@
          <!--truncatewords - шаблонный фильтр ограничевает значение до указанного количества слов
              linebreaks -  конвертирует результат в разрывы строк в формате HTML-->
 
-        {{ post.body|truncatewords:30|linebreaks }}
+        {{ post.body|markdown|truncatechars_html:30 }}
     {% endfor %}
     {% include 'blog/paginator.html' with page=posts %}
 {% endblock %}
